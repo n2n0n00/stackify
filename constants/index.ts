@@ -1,5 +1,56 @@
 import { SidebarLink } from "@/types";
 
+export const rightBarQuestions = [
+  {
+    route: "/",
+    title:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+  },
+  {
+    route: "/",
+    title:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+  },
+  {
+    route: "/",
+    title:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+  },
+  {
+    route: "/",
+    title:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+  },
+];
+
+export const rigthBarTags = [
+  {
+    route: "/",
+    title: "Next",
+    number: "78",
+  },
+  {
+    route: "/",
+    title: "NotNextButPrevious",
+    number: "8",
+  },
+  {
+    route: "/",
+    title: "Blahblah",
+    number: "58",
+  },
+  {
+    route: "/",
+    title: "Blah",
+    number: "5222",
+  },
+  {
+    route: "/",
+    title: "SF9",
+    number: "453",
+  },
+];
+
 export const themes = [
   { value: "light", label: "Light", icon: "/assets/icons/sun.svg" },
   { value: "dark", label: "Dark", icon: "/assets/icons/moon.svg" },
