@@ -2,22 +2,22 @@ import { SidebarLink } from "@/types";
 
 export const rightBarQuestions = [
   {
-    route: "/",
+    _id: 1,
     title:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
   },
   {
-    route: "/",
+    _id: 2,
     title:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
   },
   {
-    route: "/",
+    _id: 3,
     title:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
   },
   {
-    route: "/",
+    _id: 4,
     title:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
   },
@@ -25,29 +25,29 @@ export const rightBarQuestions = [
 
 export const rigthBarTags = [
   {
-    route: "/",
-    title: "Next",
-    number: "78",
+    _id: 1,
+    name: "Next",
+    totalQuestions: "78",
   },
   {
-    route: "/",
-    title: "NotNextButPrevious",
-    number: "8",
+    _id: 2,
+    name: "NotNextButPrevious",
+    totalQuestions: "8",
   },
   {
-    route: "/",
-    title: "Blahblah",
-    number: "58",
+    _id: 3,
+    name: "Blahblah",
+    totalQuestions: "58",
   },
   {
-    route: "/",
-    title: "Blah",
-    number: "5222",
+    _id: 4,
+    name: "Blah",
+    totalQuestions: "5222",
   },
   {
-    route: "/",
-    title: "SF9",
-    number: "453",
+    _id: 5,
+    name: "SF9",
+    totalQuestions: "453",
   },
 ];
 
