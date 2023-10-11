@@ -5,7 +5,7 @@ import { HomePageFilters } from "@/constants/filters";
 const HomeFilters = () => {
   const active = "newest";
   return (
-    <div className="flex-wrap">
+    <div className="flex flex-row flex-wrap gap-3">
       {HomePageFilters.map((item) => (
         <Button
           key={item.name}
