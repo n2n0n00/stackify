@@ -49,12 +49,10 @@ const QuestionCard = ({
           </div>
           {/* If signed in add an edit button */}
 
-          <div className="mt-3.5 flex flex-row gap-2">
-            {tags.map((item) => {
-              return (
-                <RenderTag key={item._id} _id={item._id} name={item.name} />
-              );
-            })}
+          <div className="mt-3.5 flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <RenderTag key={tag._id} _id={tag._id} name={tag.name} />
+            ))}
           </div>
         </div>
 
