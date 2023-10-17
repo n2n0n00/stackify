@@ -1,11 +1,10 @@
-import { Schema, model, models, Document } from "mongoose";
+import { Schema, models, model, Document } from "mongoose";
 
-// 1. Create an interface representing a document in MongoDB. Documents means it takes some more properties
 export interface IQuestion extends Document {
   title: string;
   content: string;
   tags: Schema.Types.ObjectId[];
-  view: number;
+  views: number;
   upvotes: Schema.Types.ObjectId[];
   downvotes: Schema.Types.ObjectId[];
   author: Schema.Types.ObjectId;

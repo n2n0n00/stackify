@@ -1,20 +1,19 @@
 import { Schema, model, models, Document } from "mongoose";
 
-// 1. Create an interface representing a document in MongoDB. Documents means it takes some more properties
 export interface ITag extends Document {
-  description: string;
   name: string;
+  description: string;
   questions: Schema.Types.ObjectId[];
-  createdOn: Date;
   followers: Schema.Types.ObjectId[];
+  createdOn: Date;
 }
 
 const TagSchema = new Schema({
-  description: { type: String, required: true, unique: true },
-  name: { type: String, required: true },
-  questions: [{ type: Schema.Types.ObjectId, ref: "Questions" }],
-  createdOn: { type: Date, default: Date.now },
+  name: { type: String, required: true, unique: true },
+  description: { type: String, required: true },
+  questions: [{ type: Schema.Types.ObjectId, ref: "Question" }],
   followers: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  createdOn: { type: Date, default: Date.now },
 });
 
 const Tag = models.Tag || model("Tag", TagSchema);
