@@ -1,0 +1,44 @@
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+export const getTimestamp = (createdAt: Date): string => {
+  const now = new Date();
+  const timeDifference = now.getTime() - createdAt.getTime();
+
+  // Define time units in milliseconds
+  const minute = 60 * 1000;
+  const hour = 60 * minute;
+  const day = 24 * hour;
+  const week = 7 * day;
+
+  if (timeDifference < minute) {
+    const secondsAgo = Math.floor(timeDifference / 1000);
+    return `${secondsAgo} ${secondsAgo === 1 ? "sec" : "secs"} ago`;
+  } else if (timeDifference < hour) {
+    const minutesAgo = Math.floor(timeDifference / minute);
+    return `${minutesAgo} ${minutesAgo === 1 ? "min" : "mins"} ago`;
+  } else if (timeDifference < day) {
+    const hoursAgo = Math.floor(timeDifference / hour);
+    return `${hoursAgo} ${hoursAgo === 1 ? "hour" : "hours"} ago`;
+  } else if (timeDifference < week) {
+    const daysAgo = Math.floor(timeDifference / day);
+    return `${daysAgo} ${daysAgo === 1 ? "day" : "days"} ago`;
+  } else {
+    // If it's been more than a week, return the full date
+    return createdAt.toDateString();
+  }
+};
+
+export const formatNumber = (number: number): string => {
+  if (number >= 1000000) {
+    return (number / 1000000).toFixed(1) + "M";
+  } else if (number >= 1000) {
+    return (number / 1000).toFixed(1) + "K";
+  } else {
+    return number.toString();
+  }
+};
