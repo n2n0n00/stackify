@@ -15,8 +15,9 @@ import { Editor } from "@tinymce/tinymce-react";
 import { useTheme } from "@/context/ThemeProvider";
 import { Button } from "../ui/button";
 import Image from "next/image";
+import { createAnswer } from "@/lib/actions/answer.action";
 
-const Answer = () => {
+const Answer = ({ author, content, question, path }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { mode } = useTheme();
   const editorRef = useRef(null);
@@ -27,8 +28,17 @@ const Answer = () => {
     },
   });
 
-  const handleCreateAnswer = (data) => {
-    
+  const handleCreateAnswer = async (values: z.infer<typeof AnswerSchema>) => {
+    setIsSubmitting(true);
+    try {
+      await createAnswer({
+        content: values.answer,
+        author: JSON.parse(authorId),
+      });
+    } catch (error) {
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

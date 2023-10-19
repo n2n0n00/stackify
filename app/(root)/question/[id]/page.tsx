@@ -4,6 +4,7 @@ import ParseHtml from "@/components/shared/ParseHtml";
 import RenderTag from "@/components/shared/search/RenderTag";
 import { getQuestionById } from "@/lib/actions/questions.actions";
 import { formatNumber, getTimestamp } from "@/lib/utils";
+import { auth } from "@clerk/nextjs";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -12,6 +13,9 @@ import React from "react";
 
 const Page = async ({ params, searchParams }) => {
   const result = await getQuestionById({ questionId: params.id });
+
+  const { userId: clerkId } = auth();
+
   return (
     <>
       <div className="flex-start w-full flex-col">
