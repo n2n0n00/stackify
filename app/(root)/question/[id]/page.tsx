@@ -3,14 +3,13 @@ import AllAnswers from "@/components/shared/AllAnswers";
 import Metric from "@/components/shared/Metric";
 import ParseHtml from "@/components/shared/ParseHtml";
 import RenderTag from "@/components/shared/search/RenderTag";
+import Votes from "@/components/shared/Voting";
 import { getQuestionById } from "@/lib/actions/questions.actions";
 import { getUserById } from "@/lib/actions/user.action";
 import { formatNumber, getTimestamp } from "@/lib/utils";
 import { auth } from "@clerk/nextjs";
-
 import Image from "next/image";
 import Link from "next/link";
-
 import React from "react";
 
 const Page = async ({ params, searchParams }) => {
@@ -43,17 +42,29 @@ const Page = async ({ params, searchParams }) => {
               {result.author.name}
             </p>
           </Link>
-          <div className="flex justify-end">VOTING</div>
+          <div className="flex justify-end">
+            <Votes
+              type="Question"
+              itemId={JSON.stringify(result._id)}
+              userId={JSON.stringify(mongoUser._id)}
+              upvotes={result.upvotes.length}
+              hasupVoted={result.upvotes.includes(mongoUser._id)}
+              downvotes={result.downvotes.length}
+              hasdownVoted={result.downvotes.includes(mongoUser._id)}
+              hasSaved={mongoUser?.saved.includes(result._id)}
+            />
+          </div>
         </div>
         <h2 className="h2-semibold text-dark200_light900 mt-3.5 w-full text-left">
           {result.title}
         </h2>
       </div>
+
       <div className="mb-8 mt-5 flex flex-wrap gap-4">
         <Metric
           imgUrl="/assets/icons/clock.svg"
           alt="clock icon"
-          value={` Asked ${getTimestamp(result.createdAt)}`}
+          value={` asked ${getTimestamp(result.createdAt)}`}
           title=" Asked"
           textStyles="small-medium text-dark400_light800"
         />
@@ -73,9 +84,7 @@ const Page = async ({ params, searchParams }) => {
         />
       </div>
 
-      <p className="text-dark400_light800">
-        <ParseHtml data={result.content} />
-      </p>
+      <ParseHtml data={result.content} />
 
       <div className="mt-8 flex flex-wrap gap-2">
         {result.tags.map((tag: any) => (
@@ -90,7 +99,7 @@ const Page = async ({ params, searchParams }) => {
 
       <AllAnswers
         questionId={result._id}
-        userId={JSON.stringify(mongoUser._id)}
+        userId={mongoUser._id}
         totalAnswers={result.answers.length}
       />
 
