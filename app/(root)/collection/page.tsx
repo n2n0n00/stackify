@@ -1,16 +1,23 @@
 import React from "react";
 import LocalSearchBar from "@/components/shared/search/LocalSearchBar";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import Filter from "@/components/shared/search/Filter";
-import { HomePageFilters } from "@/constants/filters";
-import HomeFilters from "@/components/home/HomeFilters";
+import { QuestionFilters } from "@/constants/filters";
 import QuestionCard from "@/components/cards/QuestionCard";
 import NoResults from "@/components/shared/NoResults";
-import { getQuestions } from "@/lib/actions/questions.actions";
+import { getSavedQuestions } from "@/lib/actions/user.action";
+import { auth } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import HomeFilters from "@/components/home/HomeFilters";
 
 export default async function Home() {
-  const result = await getQuestions({});
+  const { userId } = auth();
+
+  if (!userId) return null;
+
+  const result = await getSavedQuestions({
+    clerkId: userId,
+  });
 
   return (
     <>
@@ -18,7 +25,7 @@ export default async function Home() {
         <h1 className="h1-bold text-dark100_light900">All Questions</h1>
         <Link href="./ask-question" className="flex justify-end max-sm:w-full">
           <Button className="primary-gradient min-h-[46px] px-4 py-3 !text-light-900">
-            Ask a Question
+            Saved Questions
           </Button>
         </Link>
       </div>
@@ -32,12 +39,14 @@ export default async function Home() {
           otherClasses="flex-1"
         />
       </div>
+
       <div className="mt-6 flex flex-row gap-4 max-md:hidden">
         <HomeFilters />
       </div>
+
       <div className="mt-6 hidden max-md:flex">
         <Filter
-          filters={HomePageFilters}
+          filters={QuestionFilters}
           otherClasses="min-h-[56px] sm:min-w-[170px]"
           containerClasses="hidden max-md:flex"
         />
@@ -61,11 +70,9 @@ export default async function Home() {
         ) : (
           <NoResults
             title="There no questions to show"
-            description="Be the first to break the silence! 🚀 Ask a Question and kickstart the
-        discussion. our query could be the next big thing others learn from. Get
-        involved! 💡"
+            description="Add a question first to kickstart your collection of inspired questions... 💡"
             link="/ask-question"
-            linkTitle="Ask a Question"
+            linkTitle="Add a Question"
           />
         )}
       </div>
