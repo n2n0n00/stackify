@@ -111,25 +111,31 @@ export async function toggleSaveQuestion(params: ToggleSaveQuestionParams) {
   try {
     connectToDatabase();
 
+    // userId: which user we are saving this question to
+    // questionId: which question are we saving
+    // path: to revalidate our client side
     const { userId, questionId, path } = params;
 
+    // get user from database
     const user = await User.findById(userId);
 
+    // if no user, throw error
     if (!user) {
       throw new Error("User not found");
     }
 
+    // find if question has already been saved, if the user.saved array includes the questionId
     const isQuestionSaved = user.saved.includes(questionId);
 
     if (isQuestionSaved) {
-      // remove question from saved
+      // remove question from saved by pull(=remove)
       await User.findByIdAndUpdate(
         userId,
         { $pull: { saved: questionId } },
         { new: true }
       );
     } else {
-      // add question to saved
+      // add question to saved by addToSet(=add elements to array only if they do not exist)
       await User.findByIdAndUpdate(
         userId,
         { $addToSet: { saved: questionId } },
@@ -137,6 +143,7 @@ export async function toggleSaveQuestion(params: ToggleSaveQuestionParams) {
       );
     }
 
+    // revalidate front and back path
     revalidatePath(path);
   } catch (error) {
     console.log(error);
