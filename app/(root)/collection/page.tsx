@@ -25,12 +25,12 @@ export default async function Home() {
           iconPosition="left"
           imgSrc="/assets/icons/search.svg"
           placeholder="Search for questions"
-          otherClasses="flex-1"
+          otherClasses="w-full"
         />
 
         <Filter
           filters={QuestionFilters}
-          otherClasses="min-h-[56px] sm:min-w-[170px]"
+          otherClasses="min-h-[56px] sm:max-w-[170px]"
         />
       </div>
 

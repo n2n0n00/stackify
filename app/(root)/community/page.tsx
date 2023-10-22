@@ -23,7 +23,7 @@ const Page = async () => {
 
         <Filter
           filters={UserFilters}
-          otherClasses="min-h-[56px] sm:min-w-[170px]"
+          otherClasses="min-h-[56px] sm:max-w-[170px]"
         />
       </div>
 

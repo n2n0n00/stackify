@@ -18,12 +18,12 @@ const Page = async () => {
           iconPosition="left"
           imgSrc="/assets/icons/search.svg"
           placeholder="Search for tags"
-          otherClasses="flex-1"
+          otherClasses="w-full"
         />
 
         <Filter
           filters={UserFilters}
-          otherClasses="min-h-[56px] sm:min-w-[170px]"
+          otherClasses="min-h-[56px] sm:max-w-[170px]"
         />
       </div>
 

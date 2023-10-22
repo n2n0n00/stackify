@@ -80,8 +80,8 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
       </div>
       <div className="pt-12">
         <Stats
-          totalAnswers={userInfo.user.answers}
-          totalQuestions={userInfo.user.questions}
+          totalAnswers={userInfo.totalAnswers}
+          totalQuestions={userInfo.totalQuestions}
         />
       </div>
       <div className="mt-10 flex gap-10">
@@ -94,14 +94,17 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
               Answers
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="top-posts">
+          <TabsContent value="top-posts" className="mt-10">
             <QuestionTab
               searchParams={searchParams}
               userId={userInfo.user._id}
               clerkId={clerkId}
             />
           </TabsContent>
-          <TabsContent value="answers" className="flex w-full flex-col gap-6">
+          <TabsContent
+            value="answers"
+            className="mt-10 flex w-full flex-col gap-6"
+          >
             <AnswerTab
               searchParams={searchParams}
               userId={userInfo.user._id}

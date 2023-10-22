@@ -17,16 +17,18 @@ const AnswersTab = async ({ searchParams, userId, clerkId }: Props) => {
 
   return (
     <>
-      {result.answers.map((item) => (
-        <AnswerCard
-          key={item._id}
-          clerkId={clerkId}
-          _id={item._id}
-          question={item.question}
-          author={item.author}
-          upvotes={item.upvotes.length}
-          createdAt={item.createdAt}
-        />
+      {result.answers.map((answer) => (
+        <div className="my-4" key={answer._id}>
+          <AnswerCard
+            key={answer._id}
+            clerkId={clerkId}
+            _id={answer._id}
+            question={answer.question}
+            author={answer.author}
+            upvotes={answer.upvotes.length}
+            createdAt={answer.createdAt}
+          />
+        </div>
       ))}
     </>
   );

@@ -65,7 +65,7 @@ const Page = async ({ params, searchParams }) => {
           imgUrl="/assets/icons/clock.svg"
           alt="clock icon"
           value={` asked ${getTimestamp(result.createdAt)}`}
-          title=" Asked"
+          title=""
           textStyles="small-medium text-dark400_light800"
         />
         <Metric
@@ -84,7 +84,10 @@ const Page = async ({ params, searchParams }) => {
         />
       </div>
 
-      <ParseHtml data={result.content} />
+      <div className="text-dark400_light800">
+        {" "}
+        <ParseHtml data={result.content} />
+      </div>
 
       <div className="mt-8 flex flex-wrap gap-2">
         {result.tags.map((tag: any) => (

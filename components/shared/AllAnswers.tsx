@@ -7,6 +7,7 @@ import Image from "next/image";
 import { getTimestamp } from "@/lib/utils";
 import ParseHTML from "./ParseHtml";
 import Votes from "./Voting";
+import ParseHtml from "./ParseHtml";
 
 interface Props {
   questionId: string;
@@ -74,7 +75,10 @@ const AllAnswers = async ({
                 </div>
               </div>
             </div>
-            <ParseHTML data={answer.content} />
+            <div className="text-dark400_light800">
+              {" "}
+              <ParseHtml data={answer.content} />
+            </div>
           </article>
         ))}
       </div>
