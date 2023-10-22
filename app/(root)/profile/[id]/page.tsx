@@ -78,10 +78,12 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
           </SignedIn>
         </div>
       </div>
-      <Stats
-        totalAnswers={userInfo.user.answers}
-        totalQuestions={userInfo.user.questions}
-      />
+      <div className="pt-12">
+        <Stats
+          totalAnswers={userInfo.user.answers}
+          totalQuestions={userInfo.user.questions}
+        />
+      </div>
       <div className="mt-10 flex gap-10">
         <Tabs defaultValue="top-posts" className="flex-1">
           <TabsList className="background-light800_dark400 min-h-[42px] p-1">
