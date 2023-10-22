@@ -46,7 +46,7 @@ const AnswerCard = ({
 
         <SignedIn>
           {showAction && (
-            <ActionButton type="Question" itemId={JSON.stringify(_id)} />
+            <ActionButton type="Answer" itemId={JSON.stringify(_id)} />
           )}
         </SignedIn>
 
