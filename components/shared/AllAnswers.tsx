@@ -28,7 +28,7 @@ const AllAnswers = async ({
   });
 
   return (
-    <div className="mt-11">
+    <div className="mb-4 mt-11">
       <div className="flex items-center justify-between">
         <h3 className="primary-text-gradient w-full">{totalAnswers} Answers</h3>
 

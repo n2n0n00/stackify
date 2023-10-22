@@ -21,9 +21,11 @@ interface Props {
     _id: string;
     name: string;
   }[];
+  clerkId?: string;
 }
 
 const QuestionCard = ({
+  clerkId,
   _id,
   title,
   author,

@@ -7,6 +7,10 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { getMonthYearJoined } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ProfileLink from "@/components/shared/ProfileLink";
+import Stats from "@/components/shared/Stats";
+import AnswerTab from "@/components/shared/AnswerTab";
+import QuestionTab from "@/components/shared/QuestionTab";
 
 const ProfilePage = async ({ params, searchParams }: URLProps) => {
   const { userId: clerkId } = auth();
@@ -33,12 +37,33 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
             </p>
 
             <div className="mt-5 flex flex-wrap items-center justify-start gap-5">
-              {userInfo.user.location && <>Location</>}
+              {userInfo.user.portfolioWebsite && (
+                <ProfileLink
+                  imgUrl="/assets/icons/link.svg"
+                  href={userInfo.user.portfolioWebsite}
+                  title="Portfolio"
+                />
+              )}
 
-              {getMonthYearJoined(userInfo.user.joinedAt)}
+              {userInfo.user.location && (
+                <ProfileLink
+                  imgUrl="/assets/icons/location.svg"
+                  href={userInfo.user.location}
+                  title="Location:"
+                />
+              )}
+
+              <ProfileLink
+                imgUrl="/assets/icons/calendar.svg"
+                title={getMonthYearJoined(userInfo.user.joinedAt)}
+              />
             </div>
 
-            {userInfo.user.bio && <p>{userInfo.user.bio}</p>}
+            {userInfo.user.bio && (
+              <p className="paragraph-regular text-dark400_light800 mt-8">
+                {userInfo.user.bio}
+              </p>
+            )}
           </div>
         </div>
         <div className="flex justify-end max-sm:mb-5 max-sm:w-full sm:mt-3">
@@ -53,20 +78,33 @@ const ProfilePage = async ({ params, searchParams }: URLProps) => {
           </SignedIn>
         </div>
       </div>
-      Stats
+      <Stats
+        totalAnswers={userInfo.user.answers}
+        totalQuestions={userInfo.user.questions}
+      />
       <div className="mt-10 flex gap-10">
         <Tabs defaultValue="top-posts" className="flex-1">
           <TabsList className="background-light800_dark400 min-h-[42px] p-1">
             <TabsTrigger value="top-posts" className="tab">
-              Top Posts
+              Top Questions
             </TabsTrigger>
             <TabsTrigger value="answers" className="tab">
               Answers
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="top-posts">Posts</TabsContent>
+          <TabsContent value="top-posts">
+            <QuestionTab
+              searchParams={searchParams}
+              userId={userInfo.user._id}
+              clerkId={clerkId}
+            />
+          </TabsContent>
           <TabsContent value="answers" className="flex w-full flex-col gap-6">
-            Answers
+            <AnswerTab
+              searchParams={searchParams}
+              userId={userInfo.user._id}
+              clerkId={clerkId}
+            />
           </TabsContent>
         </Tabs>
       </div>
