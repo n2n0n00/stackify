@@ -1,3 +1,5 @@
+// tinyMCE Errors don't allow questions post or edit will solve later.
+
 "use client";
 import React, { useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
