@@ -38,16 +38,28 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const parsedQuestionDetails = JSON.parse(questionDetails || "");
+  let parsedQuestionDetails: any;
 
-  const groupedTags = parsedQuestionDetails.tags.map((tag) => tag.name);
+  if (questionDetails) {
+    parsedQuestionDetails = JSON.parse(questionDetails);
+  } else {
+    parsedQuestionDetails = "";
+  }
+
+  let groupedTags;
+
+  if (questionDetails) {
+    groupedTags = parsedQuestionDetails.tags.map((tag) => tag.name);
+  } else {
+    groupedTags = [];
+  }
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
     defaultValues: {
-      title: parsedQuestionDetails.title || "",
-      explanation: parsedQuestionDetails.content || "",
+      title: parsedQuestionDetails.title,
+      explanation: parsedQuestionDetails.content,
       tags: groupedTags || [],
     },
   });
@@ -78,6 +90,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
         router.push("/");
       }
     } catch (error) {
+      console.error("Form submission error:", error);
     } finally {
       setIsSubmitting(false);
     }
