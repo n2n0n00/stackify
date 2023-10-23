@@ -18,17 +18,24 @@ import Interaction from "@/database/interaction.model";
 
 export async function updateQuestion(params: EditQuestionParams) {
   try {
+    connectToDatabase();
+
     const { questionId, title, content, path } = params;
-    const question = await Question.findByIdAndUpdate(
-      questionId,
-      { $set: { title, content } },
-      { new: true } // Ensure you get the updated document as a result
-    );
+
+    const question = await Question.findById(questionId).populate("tags");
+
+    if (!question) {
+      throw new Error("Question not found");
+    }
+    // update fields
+    question.title = title;
+    question.content = content;
+
     await question.save();
+
     revalidatePath(path);
   } catch (error) {
     console.log(error);
-    throw error;
   }
 }
 

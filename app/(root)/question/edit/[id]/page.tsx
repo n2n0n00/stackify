@@ -1,24 +1,30 @@
 import Question from "@/components/forms/Question";
+import { getQuestionById } from "@/lib/actions/questions.actions";
 import { getUserById } from "@/lib/actions/user.action";
+import { ParamsProps } from "@/types";
 import { auth } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
-import React from "react";
 
-const EditQuestion = async () => {
+const Page = async ({ params }: ParamsProps) => {
   const { userId } = auth();
 
-  if (!userId) redirect("/sing-in");
+  if (!userId) return null;
 
   const mongoUser = await getUserById({ userId });
-  console.log(mongoUser);
+  const result = await getQuestionById({ questionId: params.id });
+
   return (
-    <div>
-      <h1 className="h1-bold text-dark100_light900">Ask a Question</h1>
+    <>
+      <h1 className="h1-bold text-dark100_light900">Edit Question</h1>
+
       <div className="mt-9">
-        <Question mongoUserId={JSON.stringify(mongoUser._id)} />
+        <Question
+          type="Edit"
+          mongoUserId={mongoUser._id}
+          questionDetails={JSON.stringify(result)}
+        />
       </div>
-    </div>
+    </>
   );
 };
 
-export default EditQuestion;
+export default Page;
