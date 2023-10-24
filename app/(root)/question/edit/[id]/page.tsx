@@ -11,7 +11,7 @@ const Page = async ({ params }: ParamsProps) => {
 
   const mongoUser = await getUserById({ userId });
   const result = await getQuestionById({ questionId: params.id });
-  const parsedUser = mongoUser._id.toString();
+  // const parsedUser = mongoUser._id.toString();
   return (
     <>
       <h1 className="h1-bold text-dark100_light900">Edit Question</h1>
@@ -19,7 +19,7 @@ const Page = async ({ params }: ParamsProps) => {
       <div className="mt-9">
         <Question
           type="Edit"
-          mongoUserId={parsedUser}
+          mongoUserId={mongoUser._id}
           questionDetails={JSON.stringify(result)}
         />
       </div>
