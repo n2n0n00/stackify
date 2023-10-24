@@ -31,7 +31,7 @@ export async function getTopQuestions(params: GetQuestionsParams) {
   }
 }
 
-export async function updateQuestion(params: EditQuestionParams) {
+export async function editQuestion(params: EditQuestionParams) {
   try {
     connectToDatabase();
 
