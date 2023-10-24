@@ -64,7 +64,6 @@ const QuestionCard = ({
             {tags.map((tag) => (
               <RenderTag key={tag._id} _id={tag._id} name={tag.name} />
             ))}
-            Si
           </div>
         </div>
 

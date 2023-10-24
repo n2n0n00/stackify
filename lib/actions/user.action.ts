@@ -18,6 +18,21 @@ import Question from "@/database/question.model";
 import Tag from "@/database/tag.model";
 import Answer from "@/database/answer.model";
 
+export async function updateUser(params: UpdateUserParams) {
+  try {
+    connectToDatabase();
+
+    const { clerkId, updateData, path } = params;
+
+    await User.findOneAndUpdate({ clerkId }, updateData, { new: true }); // find a user based on the ClerkId, pass the data in updateData and create a new instance of that document
+
+    revalidatePath(path);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
 export async function getUserById(params: any) {
   try {
     connectToDatabase();
@@ -40,23 +55,6 @@ export async function createUser(userData: CreateUserParams) {
     const newUser = await User.create(userData);
 
     return newUser;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
-
-export async function updateUser(params: UpdateUserParams) {
-  try {
-    connectToDatabase();
-
-    const { clerkId, updateData, path } = params;
-
-    await User.findOneAndUpdate({ clerkId }, updateData, {
-      new: true,
-    });
-
-    revalidatePath(path);
   } catch (error) {
     console.log(error);
     throw error;
