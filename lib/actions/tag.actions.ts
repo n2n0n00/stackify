@@ -11,6 +11,23 @@ import Tag, { ITag } from "@/database/tag.model";
 import { FilterQuery } from "mongoose";
 import Question from "@/database/question.model";
 
+export async function getTopTags(params: GetTopInteractedTagsParams) {
+  try {
+    connectToDatabase();
+
+    const tags = await Tag.aggregate([
+      { $project: { name: 1, numberOfQuestions: { $size: "$questions" } } },
+      { $sort: { numberOfQuestions: -1 } },
+      { $limit: 5 },
+    ]);
+
+    return tags;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
 export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
   try {
     connectToDatabase();
