@@ -4,14 +4,14 @@ import { getUserById } from "@/lib/actions/user.action";
 import { ParamsProps } from "@/types";
 import { auth } from "@clerk/nextjs";
 
-const Page = async ({ params }: ParamsProps) => {
+const EditQuestion = async ({ params }: ParamsProps) => {
   const { userId } = auth();
 
   if (!userId) return null;
 
   const mongoUser = await getUserById({ userId });
   const result = await getQuestionById({ questionId: params.id });
-  // const parsedUser = mongoUser._id.toString();
+
   return (
     <>
       <h1 className="h1-bold text-dark100_light900">Edit Question</h1>
@@ -27,4 +27,4 @@ const Page = async ({ params }: ParamsProps) => {
   );
 };
 
-export default Page;
+export default EditQuestion;
