@@ -1,5 +1,3 @@
-// tinyMCE Errors don't allow questions post or edit will solve later.
-
 "use client";
 import React, { useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
@@ -20,10 +18,7 @@ import { Button } from "../ui/button";
 import { QuestionsSchema } from "@/lib/validations";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
-import {
-  createQuestion,
-  updateQuestion,
-} from "@/lib/actions/questions.actions";
+import { createQuestion, editQuestion } from "@/lib/actions/question.action";
 import { useRouter, usePathname } from "next/navigation";
 import { useTheme } from "@/context/ThemeProvider";
 
@@ -40,28 +35,17 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  let parsedQuestionDetails: any;
+  const parsedQuestionDetails =
+    questionDetails && JSON.parse(questionDetails || "");
 
-  if (questionDetails) {
-    parsedQuestionDetails = JSON.parse(questionDetails);
-  } else {
-    parsedQuestionDetails = "";
-  }
-
-  let groupedTags;
-
-  if (questionDetails) {
-    groupedTags = parsedQuestionDetails.tags.map((tag) => tag.name);
-  } else {
-    groupedTags = [];
-  }
+  const groupedTags = parsedQuestionDetails?.tags.map((tag) => tag.name);
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
     defaultValues: {
-      title: parsedQuestionDetails.title,
-      explanation: parsedQuestionDetails.content,
+      title: parsedQuestionDetails?.title || "",
+      explanation: parsedQuestionDetails?.content || "",
       tags: groupedTags || [],
     },
   });
@@ -72,7 +56,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
 
     try {
       if (type === "Edit") {
-        await updateQuestion({
+        await editQuestion({
           questionId: parsedQuestionDetails._id,
           title: values.title,
           content: values.explanation,
@@ -92,7 +76,6 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
         router.push("/");
       }
     } catch (error) {
-      console.error("Form submission error:", error);
     } finally {
       setIsSubmitting(false);
     }
@@ -179,7 +162,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
                   }}
                   onBlur={field.onBlur}
                   onEditorChange={(content) => field.onChange(content)}
-                  initialValue={parsedQuestionDetails.content || ""}
+                  initialValue={parsedQuestionDetails?.content || ""}
                   init={{
                     height: 350,
                     menubar: false,

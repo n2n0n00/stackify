@@ -1,56 +1,5 @@
 import { SidebarLink } from "@/types";
 
-export const rightBarQuestions = [
-  {
-    _id: "1",
-    title:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-  },
-  {
-    _id: "2",
-    title:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-  },
-  {
-    _id: "3",
-    title:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-  },
-  {
-    _id: "4",
-    title:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-  },
-];
-
-export const rigthBarTags = [
-  {
-    _id: "1",
-    name: "Next",
-    totalQuestions: "78",
-  },
-  {
-    _id: "2",
-    name: "NotNextButPrevious",
-    totalQuestions: "8",
-  },
-  {
-    _id: "3",
-    name: "Blahblah",
-    totalQuestions: "58",
-  },
-  {
-    _id: "4",
-    name: "Blah",
-    totalQuestions: "5222",
-  },
-  {
-    _id: "5",
-    name: "SF9",
-    totalQuestions: "453",
-  },
-];
-
 export const themes = [
   { value: "light", label: "Light", icon: "/assets/icons/sun.svg" },
   { value: "dark", label: "Dark", icon: "/assets/icons/moon.svg" },

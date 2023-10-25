@@ -1,11 +1,10 @@
-"use client";
-import { SignedIn, UserButton } from "@clerk/nextjs";
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
-import Theme from "./Theme";
-import MobileNav from "./MobileNav";
-import GlobalSearch from "../search/GlobalSearch";
+import { SignedIn, UserButton } from '@clerk/nextjs'
+import Image from 'next/image'
+import Link from 'next/link'
+import React from 'react'
+import Theme from './Theme'
+import MobileNav from './MobileNav'
+import GlobalSearch from '../search/GlobalSearch'
 
 const Navbar = () => {
   return (
@@ -15,30 +14,35 @@ const Navbar = () => {
           src="/assets/images/site-logo.svg"
           width={23}
           height={23}
-          alt="Stackify"
+          alt="DevFlow"
         />
-        <p className="h2-bold font-spaceGrotesk text-primary-500 max-sm:hidden">
-          Stackify
-        </p>
+
+        <p className="h2-bold font-spaceGrotesk text-dark-100 dark:text-light-900 max-sm:hidden">Dev <span className="text-primary-500">Overflow</span></p>
       </Link>
+
       <GlobalSearch />
+
       <div className="flex-between gap-5">
         <Theme />
+
         <SignedIn>
-          <UserButton
+          <UserButton 
             afterSignOutUrl="/"
             appearance={{
-              elements: { avatarBox: "h-10 w-10" },
-              variables: {
-                colorPrimary: "#ff7000",
+              elements: {
+                avatarBox: 'h-10 w-10'
               },
+              variables: {
+                colorPrimary: '#ff7000'
+              }
             }}
           />
         </SignedIn>
+
         <MobileNav />
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

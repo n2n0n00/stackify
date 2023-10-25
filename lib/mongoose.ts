@@ -1,18 +1,16 @@
 import mongoose from "mongoose";
 
-// this may be const instead of let
 let isConnected: boolean = false;
 
 export const connectToDatabase = async () => {
-  // prevent unknown field queries
   mongoose.set("strictQuery", true);
 
   if (!process.env.MONGODB_URL) {
-    return console.log("Missing MongoDB URL");
+    return console.log("MISSING MONGODB_URL");
   }
 
   if (isConnected) {
-    return console.log("MongoDB Connected");
+    return;
   }
 
   try {
@@ -21,7 +19,8 @@ export const connectToDatabase = async () => {
     });
 
     isConnected = true;
-    console.log("MongoDB is Connected");
+
+    console.log("MongoDB is connected");
   } catch (error) {
     console.log("MongoDB connection failed", error);
   }
