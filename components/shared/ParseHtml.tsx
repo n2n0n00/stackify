@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react";
 
-import Prism from 'prismjs'
-import parse from 'html-react-parser'
+import Prism from "prismjs";
+import parse from "html-react-parser";
 
 import "prismjs/components/prism-python";
 import "prismjs/components/prism-java";
@@ -35,13 +35,9 @@ interface Props {
 const ParseHTML = ({ data }: Props) => {
   useEffect(() => {
     Prism.highlightAll();
-  }, [])
+  }, []);
 
-  return (
-    <div>
-      {parse(data)}
-    </div>
-  )
-}
+  return <div className="text-dark100_light900">{parse(data)}</div>;
+};
 
-export default ParseHTML
+export default ParseHTML;
