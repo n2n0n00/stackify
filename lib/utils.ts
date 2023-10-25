@@ -42,3 +42,35 @@ export const formatNumber = (number: number): string => {
     return number.toString();
   }
 };
+
+export const getMonthYearJoined = (dateObject: Date): string => {
+  // Check if the input is a valid Date object
+  if (!(dateObject instanceof Date)) {
+    return "Invalid Date";
+  }
+
+  // Define an array of month names
+  const monthNames: string[] = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  // Get the month and year from the Date object
+  const month: string = monthNames[dateObject.getMonth()];
+  const year: number = dateObject.getFullYear();
+
+  // Create a string in the "Month Year" format
+  const formattedDate: string = `${month} ${year}`;
+
+  return formattedDate;
+};

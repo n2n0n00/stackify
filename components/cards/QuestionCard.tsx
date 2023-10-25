@@ -4,6 +4,8 @@ import RenderTag from "../shared/search/RenderTag";
 import Link from "next/link";
 import Metric from "../shared/Metric";
 import { formatNumber, getTimestamp } from "@/lib/utils";
+import { SignedIn } from "@clerk/nextjs";
+import ActionButton from "../shared/ActionButton";
 
 interface Props {
   _id: string;
@@ -21,9 +23,11 @@ interface Props {
     _id: string;
     name: string;
   }[];
+  clerkId?: string;
 }
 
 const QuestionCard = ({
+  clerkId,
   _id,
   title,
   author,
@@ -33,6 +37,8 @@ const QuestionCard = ({
   createdAt,
   tags,
 }: Props) => {
+  const showAction = clerkId && clerkId === author.clerkId;
+
   return (
     <div className="card-wrapper rounded-[10px] p-9 sm:px-11">
       <div className="flex flex-col gap-6">
@@ -47,7 +53,12 @@ const QuestionCard = ({
               </h3>
             </Link>
           </div>
-          {/* If signed in add an edit button */}
+
+          <SignedIn>
+            {showAction && (
+              <ActionButton type="Question" itemId={JSON.stringify(_id)} />
+            )}
+          </SignedIn>
 
           <div className="mt-3.5 flex flex-wrap gap-2">
             {tags.map((tag) => (
