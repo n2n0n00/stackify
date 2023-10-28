@@ -7,6 +7,7 @@ import { getSavedQuestions } from "@/lib/actions/user.action";
 import { SearchParamsProps } from "@/types";
 import { auth } from "@clerk/nextjs";
 import Pagination from "@/components/shared/Pagination";
+import Loading from "./loading";
 
 export default async function Collection({ searchParams }: SearchParamsProps) {
   const { userId } = auth();
@@ -19,6 +20,10 @@ export default async function Collection({ searchParams }: SearchParamsProps) {
     filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1,
   });
+
+  const isLoading = false;
+
+  if (isLoading) return <Loading />;
 
   return (
     <>
