@@ -65,6 +65,7 @@ const MobileNav = () => {
           className="invert-colors sm:hidden"
         />
       </SheetTrigger>
+      {/* @ts-ignore */}
       <SheetContent
         side="left"
         className="background-light900_dark200 border-none"

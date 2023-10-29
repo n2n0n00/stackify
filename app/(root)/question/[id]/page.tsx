@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "A robust community of developers who answer and ask questions about import coding things...",
 };
 
-const Page = async ({ params, searchParams }) => {
+const Page = async ({ params, searchParams }: any) => {
   const { userId: clerkId } = auth();
 
   let mongoUser;

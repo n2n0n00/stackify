@@ -33,6 +33,7 @@ const AnswersTab = async ({ searchParams, userId, clerkId }: Props) => {
       <div className="mt-10">
         <Pagination
           pageNumber={searchParams?.page ? +searchParams.page : 1}
+          // @ts-ignore
           isNext={result.isNext}
         />
       </div>
