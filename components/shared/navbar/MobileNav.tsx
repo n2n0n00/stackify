@@ -77,9 +77,7 @@ const MobileNav = () => {
             alt="Stackify"
           />
 
-          <p className="h2-bold text-dark100_light900 font-spaceGrotesk">
-            Dev <span className="text-primary-500">Overflow</span>
-          </p>
+          <p className="h2-bold font-spaceGrotesk text-primary-500">Stackify</p>
         </Link>
         <div>
           <SheetClose asChild>
