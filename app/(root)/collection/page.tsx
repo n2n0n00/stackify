@@ -2,7 +2,7 @@ import QuestionCard from "@/components/cards/QuestionCard";
 import Filter from "@/components/shared/Filter";
 import NoResult from "@/components/shared/NoResult";
 // @ts-ignore
-import LocalSearchbar from "@/components/shared/search/LocalSearchbar.tsx";
+import LocalSearchbar from "../../../components/shared/search/LocalSearchbar.tsx";
 import { QuestionFilters } from "@/constants/filters";
 import { getSavedQuestions } from "@/lib/actions/user.action";
 import { SearchParamsProps } from "@/types";

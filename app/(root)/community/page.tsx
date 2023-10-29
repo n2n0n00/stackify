@@ -2,7 +2,7 @@ import UserCard from "@/components/cards/UserCard";
 import Filter from "@/components/shared/Filter";
 import Pagination from "@/components/shared/Pagination";
 // @ts-ignore
-import LocalSearchbar from "@/components/shared/search/LocalSearchbar.tsx";
+import LocalSearchbar from "../../../components/shared/search/LocalSearchbar.tsx";
 import { UserFilters } from "@/constants/filters";
 import { getAllUsers } from "@/lib/actions/user.action";
 import { SearchParamsProps } from "@/types";

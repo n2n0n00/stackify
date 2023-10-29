@@ -4,7 +4,7 @@ import Filter from "@/components/shared/Filter";
 import NoResult from "@/components/shared/NoResult";
 import Pagination from "@/components/shared/Pagination";
 // @ts-ignore
-import LocalSearchbar from "@/components/shared/search/LocalSearchbar.tsx";
+import LocalSearchbar from "../../../components/shared/search/LocalSearchbar.tsx";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
 import {
