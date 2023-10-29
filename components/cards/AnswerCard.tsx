@@ -6,7 +6,7 @@ import { SignedIn } from "@clerk/nextjs";
 import EditDeleteAction from "../shared/EditDeleteAction";
 
 interface Props {
-  clerkId?: string | null | undefined;
+  clerkId?: string | null;
   _id: string;
   question: {
     _id: string;
