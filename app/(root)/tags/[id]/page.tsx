@@ -1,7 +1,8 @@
 import QuestionCard from "@/components/cards/QuestionCard";
 import NoResult from "@/components/shared/NoResult";
 import Pagination from "@/components/shared/Pagination";
-import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
+// @ts-ignore
+import LocalSearchbar from "@/components/shared/search/LocalSearchbar.tsx";
 import { getQuestionsByTagId } from "@/lib/actions/tag.actions";
 import { URLProps } from "@/types";
 import Loading from "../loading";
