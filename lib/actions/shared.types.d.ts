@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-import { IUser } from "@/database/user.model";
+import { IUser } from "@/mongodb";
 
 export interface CreateAnswerParams {
   content: string;
@@ -14,6 +14,7 @@ export interface GetAnswersParams {
   sortBy?: string;
   page?: number;
   pageSize?: number;
+  filter?: string;
 }
 
 export interface AnswerVoteParams {
