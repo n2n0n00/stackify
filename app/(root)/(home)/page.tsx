@@ -10,6 +10,13 @@ import { getQuestions } from "@/lib/actions/question.action";
 import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 import Loading from "./loading";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Home | Stackify",
+  description:
+    "Stackify is your one stop shop community for all things coding...",
+};
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   const result = await getQuestions({

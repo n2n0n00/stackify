@@ -7,6 +7,13 @@ import { getAllTags } from "@/lib/actions/tag.actions";
 import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 import Loading from "./loading";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Tags | Stackify",
+  description:
+    "A robust community of developers who answer and ask questions about import coding things...",
+};
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
   const result = await getAllTags({

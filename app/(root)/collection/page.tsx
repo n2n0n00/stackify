@@ -8,6 +8,12 @@ import { SearchParamsProps } from "@/types";
 import { auth } from "@clerk/nextjs";
 import Pagination from "@/components/shared/Pagination";
 import Loading from "./loading";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Collection | Stackify",
+  description: "A place for all your facourite coding questions...",
+};
 
 export default async function Collection({ searchParams }: SearchParamsProps) {
   const { userId } = auth();

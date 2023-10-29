@@ -12,6 +12,13 @@ import ProfileLink from "@/components/shared/ProfileLink";
 import Stats from "@/components/shared/Stats";
 import QuestionTab from "@/components/shared/QuestionTab";
 import AnswersTab from "@/components/shared/AnswersTab";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Stackify",
+  description:
+    "A robust community of developers who answer and ask questions about import coding things...",
+};
 
 const Page = async ({ params, searchParams }: URLProps) => {
   const { userId: clerkId } = auth();
