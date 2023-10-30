@@ -1,34 +1,36 @@
 import Image from "next/image";
 import Link from "next/link";
 
-interface JobProps {
-  id: string;
-  title: string;
-  author: {
-    _id: string;
-    name: string;
-    picture: string;
-  };
-  time: string;
-  salary: string;
-  description: string;
-  location: {
-    city: string;
-    flag: string;
-  };
-  jobLink: string;
-}
+// interface JobProps {
+//   id: string;
+//   title: string;
+//   author: {
+//     _id: string;
+//     name: string;
+//     picture: string;
+//   };
+//   time: string;
+//   salary: string;
+//   description: string;
+//   location: {
+//     city: string;
+//     flag: string;
+//   };
+//   jobLink: string;
+// }
 
-const JobsCard = ({
-  id,
-  title,
-  author,
-  time,
-  salary,
-  description,
-  location,
-  jobLink,
-}: JobProps) => {
+// const JobsCard = ({
+//   id,
+//   title,
+//   author,
+//   time,
+//   salary,
+//   description,
+//   location,
+//   jobLink,
+// }: JobProps) => {
+
+const JobsCard = ({ ip }: any) => {
   return (
     <div className="card-wrapper rounded-[10px] p-9 sm:px-11">
       <div className="flex w-full flex-row gap-8">
@@ -47,7 +49,7 @@ const JobsCard = ({
             <div className="flex w-full flex-row justify-between">
               <Link href={`/`}>
                 <h3 className="sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1">
-                  Title
+                  Your ip: {ip}
                 </h3>
               </Link>
               <div className="background-light800_dark400 flex items-center justify-end gap-2 rounded-2xl px-3 py-1.5">
