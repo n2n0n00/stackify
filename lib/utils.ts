@@ -162,6 +162,7 @@ export async function fetchJobs() {
     console.log(err);
   }
 }
+
 // in the JobsCard
 // export async function getIp(){const [ip, setIP] = useState("");
 
@@ -177,4 +178,22 @@ export async function fetchJobs() {
 // useEffect(() => {
 //   // passing getData method to the lifecycle method
 //   getData();
+// }, []);}
+
+// export async function getCountry(){
+
+//   const [flag, setFlag] = useState("");
+
+// const getFlag = async () => {
+//   const res = await axios.get(
+//     "https://restcountries.com/v3.1/all?fields=name,flags"
+//   );
+
+//   console.log(res.data);
+//   setFlag(res.data.flag);
+// };
+
+// useEffect(() => {
+//   // passing getData method to the lifecycle method
+//   getFlag();
 // }, []);}

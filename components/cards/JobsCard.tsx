@@ -1,7 +1,9 @@
 /* eslint-disable camelcase */
 "use client";
+import { formatAndDivideNumber } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface JobProps {
   employer_logo?: string;
@@ -34,31 +36,45 @@ const JobsCard = ({
     job_salary_period = "Not disclosed";
   }
 
+  const [flag, setFlag] = useState("");
+
+  useEffect(() => {
+    fetch(`https://restcountries.com/v3.1/alpha/${job_country}?fields=flags`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Check the format of the flag data in the response
+        if (data && data.flags && typeof data.flags.svg === "string") {
+          // If it's an object with a "flags" object containing a "png" property, use that string as the URL
+          setFlag(data.flags.svg);
+        } else {
+          console.error("Invalid flag data format:", data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching country flag:", error);
+      });
+  }, [job_country]);
+
   return (
     <section className="background-light900_dark200 light-border shadow-light100_darknone flex flex-col items-start gap-6 rounded-lg border p-6 sm:flex-row sm:p-8">
       <div className="flex w-full justify-end sm:hidden">
         <div className="background-light800_dark400 flex items-center justify-end gap-2 rounded-2xl px-3 py-1.5">
-          <Image
-            src="/assets/icons/au.svg"
-            width={14}
-            height={14}
-            alt="profile image"
-          />
+          {flag && (
+            <Image src={flag} width={24} height={24} alt="profile image" />
+          )}
           <p className="body-medium text-dark400_light700">
-            {job_city} {job_state} {job_country}
+            {job_city} {job_state}, {job_country}
           </p>
         </div>
       </div>
-      <div className="flex items-center gap-6">
+      <div className="background-light800_dark400 relative flex h-16 w-16 items-center justify-center gap-6 rounded-xl">
         {employer_logo ? (
-          <Link href="/">
-            <Image
-              src={employer_logo}
-              width={60}
-              height={60}
-              alt="profile image"
-            />
-          </Link>
+          <Image
+            src={employer_logo}
+            width={60}
+            height={60}
+            alt="profile image"
+          />
         ) : (
           <Image
             src="/assets/images/site-logo.svg"
@@ -73,14 +89,11 @@ const JobsCard = ({
           <p className="base-semibold text-dark200_light900">{job_title}</p>
           <div className="hidden sm:flex">
             <div className="background-light800_dark400 flex items-center justify-end gap-2 rounded-2xl px-3 py-1.5">
-              <Image
-                src="/assets/icons/au.svg"
-                width={14}
-                height={14}
-                alt="profile image"
-              />
+              {flag && (
+                <Image src={flag} width={24} height={24} alt="profile image" />
+              )}
               <p className="body-medium text-dark400_light700">
-                {job_city} {job_state} {job_country}
+                {job_city} {job_state}, {job_country}
               </p>
             </div>
           </div>
@@ -113,7 +126,8 @@ const JobsCard = ({
               <div>
                 {job_min_salary ? (
                   <p className="body-medium text-light-500">
-                    {job_min_salary} {job_salary_currency}
+                    {formatAndDivideNumber(job_min_salary)}{" "}
+                    {job_salary_currency}
                   </p>
                 ) : (
                   <p className="body-medium text-light-500">Not disclosed</p>

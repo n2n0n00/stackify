@@ -1,7 +1,6 @@
 import JobsCard from "@/components/cards/JobsCard";
 import Filter from "@/components/shared/Filter";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
-import { QuestionFilters } from "@/constants/filters";
 import React from "react";
 import { fetchJobs } from "@/lib/utils";
 
@@ -9,7 +8,21 @@ const Jobs = async () => {
   const allJobs = await fetchJobs();
   const objJobs = Object.values(allJobs);
   const isDataEmpty = !Array.isArray(objJobs) || objJobs.length < 1 || !objJobs;
-  console.log(objJobs);
+
+  const uniqueJobCountries = new Set();
+
+  objJobs.forEach((job: any) => {
+    uniqueJobCountries.add(JSON.stringify(job.job_country));
+  });
+
+  const jobCountryArray = Array.from(uniqueJobCountries).map(
+    (jsonString: any) => JSON.parse(jsonString)
+  );
+
+  const countryFilters = jobCountryArray.map((jobCountry) => ({
+    name: jobCountry,
+    value: jobCountry,
+  }));
 
   return (
     <section>
@@ -25,7 +38,7 @@ const Jobs = async () => {
         />
 
         <Filter
-          filters={QuestionFilters}
+          filters={countryFilters}
           otherClasses="min-h-[56px] sm:min-w-[170px]"
         />
       </div>
