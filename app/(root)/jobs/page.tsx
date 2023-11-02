@@ -1,28 +1,15 @@
-"use client";
-
 import JobsCard from "@/components/cards/JobsCard";
 import Filter from "@/components/shared/Filter";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { QuestionFilters } from "@/constants/filters";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
+import { fetchJobs } from "@/lib/utils";
 
-const Jobs = () => {
-  const [ip, setIP] = useState("");
-
-  const getData = async () => {
-    const res = await axios.get(
-      "http://ip-api.com/json/?fields=status,message,country,countryCode,region,city,query"
-    );
-
-    console.log(res.data);
-    setIP(res.data.query);
-  };
-
-  useEffect(() => {
-    // passing getData method to the lifecycle method
-    getData();
-  }, []);
+const Jobs = async () => {
+  const allJobs = await fetchJobs();
+  const objJobs = Object.values(allJobs);
+  const isDataEmpty = !Array.isArray(objJobs) || objJobs.length < 1 || !objJobs;
+  console.log(objJobs);
 
   return (
     <section>
@@ -43,9 +30,30 @@ const Jobs = () => {
         />
       </div>
 
-      <div className="mt-12 flex flex-col gap-6">
-        <JobsCard ip={ip} />
-      </div>
+      {!isDataEmpty ? (
+        <>
+          {objJobs?.map((job: any) => (
+            <div key="1" className="mt-12 flex flex-col gap-6">
+              <JobsCard
+                employer_logo={job.employer_logo}
+                job_title={job.job_title}
+                job_description={job.job_description}
+                job_city={job.job_city}
+                job_state={job.job_state}
+                job_country={job.job_country}
+                job_google_link={job.job_google_link}
+                job_min_salary={job.job_min_salary}
+                job_salary_currency={job.job_salary_currency}
+                job_salary_period={job.job_salary_period}
+              />
+            </div>
+          ))}
+        </>
+      ) : (
+        <div>
+          <h2>Ooops, no jobs found!</h2>
+        </div>
+      )}
     </section>
   );
 };

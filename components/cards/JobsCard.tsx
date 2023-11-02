@@ -1,111 +1,142 @@
+/* eslint-disable camelcase */
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 
-// interface JobProps {
-//   id: string;
-//   title: string;
-//   author: {
-//     _id: string;
-//     name: string;
-//     picture: string;
-//   };
-//   time: string;
-//   salary: string;
-//   description: string;
-//   location: {
-//     city: string;
-//     flag: string;
-//   };
-//   jobLink: string;
-// }
+interface JobProps {
+  employer_logo?: string;
+  job_title?: string;
+  job_description?: string;
+  job_city?: string;
+  job_state?: string;
+  job_country?: string;
+  job_google_link: string;
+  job_min_salary?: number;
+  job_salary_currency?: string;
+  job_salary_period?: string;
+}
 
-// const JobsCard = ({
-//   id,
-//   title,
-//   author,
-//   time,
-//   salary,
-//   description,
-//   location,
-//   jobLink,
-// }: JobProps) => {
+const JobsCard = ({
+  employer_logo,
+  job_title,
+  job_description,
+  job_city,
+  job_state,
+  job_country,
+  job_google_link,
+  job_min_salary,
+  job_salary_currency,
+  job_salary_period,
+}: JobProps) => {
+  if (job_salary_period === "YEAR") {
+    job_salary_period = "FULLTIME";
+  } else {
+    job_salary_period = "Not disclosed";
+  }
 
-const JobsCard = ({ ip }: any) => {
   return (
-    <div className="card-wrapper rounded-[10px] p-9 sm:px-11">
-      <div className="flex w-full flex-row gap-8">
-        <div className="background-light800_dark400 relative flex h-16 w-16 items-center justify-center rounded-xl">
+    <section className="background-light900_dark200 light-border shadow-light100_darknone flex flex-col items-start gap-6 rounded-lg border p-6 sm:flex-row sm:p-8">
+      <div className="flex w-full justify-end sm:hidden">
+        <div className="background-light800_dark400 flex items-center justify-end gap-2 rounded-2xl px-3 py-1.5">
+          <Image
+            src="/assets/icons/au.svg"
+            width={14}
+            height={14}
+            alt="profile image"
+          />
+          <p className="body-medium text-dark400_light700">
+            {job_city} {job_state} {job_country}
+          </p>
+        </div>
+      </div>
+      <div className="flex items-center gap-6">
+        {employer_logo ? (
           <Link href="/">
             <Image
-              src="/assets/icons/account.svg"
-              width={40}
-              height={40}
+              src={employer_logo}
+              width={60}
+              height={60}
               alt="profile image"
             />
           </Link>
-        </div>
-        <div className="flex w-full flex-col gap-6">
-          <div className="flex w-full flex-col">
-            <div className="flex w-full flex-row justify-between">
-              <Link href={`/`}>
-                <h3 className="sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1">
-                  Your ip: {ip}
-                </h3>
-              </Link>
-              <div className="background-light800_dark400 flex items-center justify-end gap-2 rounded-2xl px-3 py-1.5">
-                <Image
-                  src="/assets/icons/account.svg"
-                  width={20}
-                  height={20}
-                  alt="profile image"
-                />
-                <p>Location</p>
-              </div>
-            </div>
-            <div className="body-regular text-dark500_light700  mt-2 line-clamp-2">
-              Description
+        ) : (
+          <Image
+            src="/assets/images/site-logo.svg"
+            width={40}
+            height={40}
+            alt="profile image"
+          />
+        )}
+      </div>
+      <div className="w-full">
+        <div className="flex-between flex-wrap gap-2">
+          <p className="base-semibold text-dark200_light900">{job_title}</p>
+          <div className="hidden sm:flex">
+            <div className="background-light800_dark400 flex items-center justify-end gap-2 rounded-2xl px-3 py-1.5">
+              <Image
+                src="/assets/icons/au.svg"
+                width={14}
+                height={14}
+                alt="profile image"
+              />
+              <p className="body-medium text-dark400_light700">
+                {job_city} {job_state} {job_country}
+              </p>
             </div>
           </div>
-          <div className="flex w-full flex-row items-center justify-between">
-            <div className="flex flex-row gap-3">
-              <div className="flex flex-row items-center justify-center gap-1">
-                {" "}
-                <Image
-                  src="/assets/icons/clock-2.svg"
-                  width={20}
-                  height={20}
-                  alt="profile image"
-                />
-                <p className="body-medium text-light-500">FULL TIME</p>
-              </div>
-              <div className="flex flex-row items-center justify-center gap-1">
-                {" "}
-                <Image
-                  src="/assets/icons/currency-dollar-circle.svg"
-                  width={20}
-                  height={20}
-                  alt="profile image"
-                />
-                <p className="body-medium text-light-500">SALARY</p>
-              </div>
-            </div>
-
-            <Link
-              className="flex flex-row items-center justify-center gap-2"
-              href="/"
-            >
-              <p className="body-semibold primary-text-gradient">View job</p>
+        </div>
+        <p className="body-regular text-dark500_light700  mt-2 line-clamp-2">
+          {job_description}
+        </p>
+        <div className="flex-between mt-8 flex-wrap gap-6">
+          <div className="flex flex-wrap items-center gap-6">
+            <div className="flex items-center gap-2">
               <Image
-                src="/assets/icons/arrow-up-right.svg"
+                src="/assets/icons/clock-2.svg"
                 width={20}
                 height={20}
                 alt="profile image"
               />
-            </Link>
+              <div>
+                <p className="body-medium text-light-500">
+                  {job_salary_period}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <Image
+                src="/assets/icons/currency-dollar-circle.svg"
+                width={20}
+                height={20}
+                alt="profile image"
+              />
+              <div>
+                {job_min_salary ? (
+                  <p className="body-medium text-light-500">
+                    {job_min_salary} {job_salary_currency}
+                  </p>
+                ) : (
+                  <p className="body-medium text-light-500">Not disclosed</p>
+                )}
+              </div>
+            </div>
           </div>
+          <Link
+            target="_blank"
+            className="flex flex-row items-center justify-center gap-2"
+            href={job_google_link}
+          >
+            <p className="body-semibold primary-text-gradient">View Job</p>
+            <Image
+              src="/assets/icons/arrow-up-right.svg"
+              width={20}
+              height={20}
+              alt="profile image"
+            />
+          </Link>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
