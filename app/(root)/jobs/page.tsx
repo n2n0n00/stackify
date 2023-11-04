@@ -2,16 +2,24 @@ import JobsCard from "@/components/cards/JobsCard";
 import Filter from "@/components/shared/Filter";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import React from "react";
-import { fetchJobs } from "@/lib/utils";
+import { customSort, fetchJobs } from "@/lib/utils";
+import { SearchParamsProps } from "@/types";
 
-const Jobs = async () => {
-  const allJobs = await fetchJobs();
+const Jobs = async ({ searchParams }: SearchParamsProps) => {
+  const allJobs = await fetchJobs({
+    query: searchParams.q || "jobs",
+    country: searchParams.filter,
+  });
+
   const objJobs = Object.values(allJobs);
-  const isDataEmpty = !Array.isArray(objJobs) || objJobs.length < 1 || !objJobs;
+  console.log(objJobs);
+  const sortedJobs = objJobs.sort(customSort);
+  const isDataEmpty =
+    !Array.isArray(sortedJobs) || sortedJobs.length < 1 || !sortedJobs;
 
   const uniqueJobCountries = new Set();
 
-  objJobs.forEach((job: any) => {
+  sortedJobs.forEach((job: any) => {
     uniqueJobCountries.add(JSON.stringify(job.job_country));
   });
 
@@ -45,7 +53,7 @@ const Jobs = async () => {
 
       {!isDataEmpty ? (
         <>
-          {objJobs?.map((job: any) => (
+          {sortedJobs?.map((job: any) => (
             <div key="1" className="mt-12 flex flex-col gap-6">
               <JobsCard
                 employer_logo={job.employer_logo}

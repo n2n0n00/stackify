@@ -141,10 +141,20 @@ export const assignBadges = (params: BadgeParam) => {
   return badgeCounts;
 };
 
-export async function fetchJobs() {
+interface FilterProps {
+  country?: string | null;
+  query?: string | null;
+  page?: number | null;
+  pageSize?: number | null;
+}
+
+export async function fetchJobs(filters: FilterProps) {
+  const { country, query } = filters;
+
   try {
     const res = await fetch(
-      `https://jsearch.p.rapidapi.com/search?query=Python%20developer%20in%20Texas%2C%20USA`,
+      `https://jsearch.p.rapidapi.com/search?query=${query}&country=${country}`,
+
       {
         method: "GET",
         headers: {
@@ -163,37 +173,59 @@ export async function fetchJobs() {
   }
 }
 
-// in the JobsCard
-// export async function getIp(){const [ip, setIP] = useState("");
+export async function getCountry() {
+  try {
+    const response = await fetch("http://ip-api.com/json/?fields=countryCode");
+    if (!response.ok) {
+      throw new Error(`Request failed with status: ${response.status}`);
+    }
+    const data = await response.json();
+    const userCountry = data.countryCode;
+    return userCountry;
+  } catch (error) {
+    console.error("Error fetching User Country:", error);
+    throw error; // Rethrow the error for the caller to handle if needed
+  }
+}
 
-// const getData = async () => {
-//   const res = await axios.get(
-//     "http://ip-api.com/json/?fields=status,message,country,countryCode,region,city,query"
-//   );
+export function customSort(a: any, b: any) {
+  const userCountry = getCountry();
 
-//   console.log(res.data);
-//   setIP(res.data.query);
-// };
+  if (a.job_country === userCountry && b.job_country === userCountry) {
+    // If both jobs have the same userCountry, maintain the order.
+    return 0;
+  } else if (a.job_country === userCountry) {
+    // If only job 'a' has the same userCountry, place it first
+    return -1;
+  } else if (b.job_country === userCountry) {
+    // If only job 'b' has the same userCountry, place it first
+    return 1;
+  } else {
+    // If neither job has the same userCountry, maintain the order.
+    return 0;
+  }
+}
 
-// useEffect(() => {
-//   // passing getData method to the lifecycle method
-//   getData();
-// }, []);}
+export async function fetchCountryData() {
+  const apiUrl = await "https://restcountries.com/v3.1/all"; // API endpoint to fetch all countries
 
-// export async function getCountry(){
-
-//   const [flag, setFlag] = useState("");
-
-// const getFlag = async () => {
-//   const res = await axios.get(
-//     "https://restcountries.com/v3.1/all?fields=name,flags"
-//   );
-
-//   console.log(res.data);
-//   setFlag(res.data.flag);
-// };
-
-// useEffect(() => {
-//   // passing getData method to the lifecycle method
-//   getFlag();
-// }, []);}
+  return fetch(apiUrl)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // Extract country names and codes from the response data
+      const countryData = data.map((country: any) => ({
+        name: country.name.common,
+        value: country.cca2,
+      }));
+      return countryData;
+    })
+    .catch((error) => {
+      console.error("Error fetching country data:", error);
+      return [];
+    });
+}

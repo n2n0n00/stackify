@@ -63,7 +63,7 @@ const JobsCard = ({
             <Image src={flag} width={24} height={24} alt="profile image" />
           )}
           <p className="body-medium text-dark400_light700">
-            {job_city} {job_state}, {job_country}
+            {job_city} {job_state} {job_country}
           </p>
         </div>
       </div>
@@ -93,7 +93,7 @@ const JobsCard = ({
                 <Image src={flag} width={24} height={24} alt="profile image" />
               )}
               <p className="body-medium text-dark400_light700">
-                {job_city} {job_state}, {job_country}
+                {job_city} {job_state} {job_country}
               </p>
             </div>
           </div>
