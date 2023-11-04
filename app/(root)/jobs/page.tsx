@@ -2,7 +2,7 @@ import JobsCard from "@/components/cards/JobsCard";
 import Filter from "@/components/shared/Filter";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import React from "react";
-import { customSort, fetchJobs } from "@/lib/utils";
+import { customSort, fetchCountryData, fetchJobs } from "@/lib/utils";
 import { SearchParamsProps } from "@/types";
 
 const Jobs = async ({ searchParams }: SearchParamsProps) => {
@@ -12,25 +12,30 @@ const Jobs = async ({ searchParams }: SearchParamsProps) => {
   });
 
   const objJobs = Object.values(allJobs);
-  console.log(objJobs);
+
   const sortedJobs = objJobs.sort(customSort);
   const isDataEmpty =
     !Array.isArray(sortedJobs) || sortedJobs.length < 1 || !sortedJobs;
 
-  const uniqueJobCountries = new Set();
+  const countryData = await fetchCountryData();
+  console.log(countryData);
 
-  sortedJobs.forEach((job: any) => {
-    uniqueJobCountries.add(JSON.stringify(job.job_country));
-  });
+  // This is for user location to match job countries by radius of distance from client but doesn't work for vercel deployment I am commenting it out
 
-  const jobCountryArray = Array.from(uniqueJobCountries).map(
-    (jsonString: any) => JSON.parse(jsonString)
-  );
+  // const uniqueJobCountries = new Set();
 
-  const countryFilters = jobCountryArray.map((jobCountry) => ({
-    name: jobCountry,
-    value: jobCountry,
-  }));
+  // sortedJobs.forEach((job: any) => {
+  //   uniqueJobCountries.add(JSON.stringify(job.job_country));
+  // });
+
+  // const jobCountryArray = Array.from(uniqueJobCountries).map(
+  //   (jsonString: any) => JSON.parse(jsonString)
+  // );
+
+  // const countryFilters = jobCountryArray.map((jobCountry) => ({
+  //   name: jobCountry,
+  //   value: jobCountry,
+  // }));
 
   return (
     <section>
@@ -38,7 +43,7 @@ const Jobs = async ({ searchParams }: SearchParamsProps) => {
 
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
         <LocalSearchbar
-          route="/"
+          route="/jobs"
           iconPosition="left"
           imgSrc="/assets/icons/search.svg"
           placeholder="Search for questions"
@@ -46,7 +51,7 @@ const Jobs = async ({ searchParams }: SearchParamsProps) => {
         />
 
         <Filter
-          filters={countryFilters}
+          filters={countryData}
           otherClasses="min-h-[56px] sm:min-w-[170px]"
         />
       </div>
@@ -65,7 +70,7 @@ const Jobs = async ({ searchParams }: SearchParamsProps) => {
                 job_google_link={job.job_google_link}
                 job_min_salary={job.job_min_salary}
                 job_salary_currency={job.job_salary_currency}
-                job_salary_period={job.job_salary_period}
+                job_employment_type={job.job_employment_type}
               />
             </div>
           ))}

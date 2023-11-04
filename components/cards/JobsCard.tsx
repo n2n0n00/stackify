@@ -15,7 +15,7 @@ interface JobProps {
   job_google_link: string;
   job_min_salary?: number;
   job_salary_currency?: string;
-  job_salary_period?: string;
+  job_employment_type?: string;
 }
 
 const JobsCard = ({
@@ -28,14 +28,8 @@ const JobsCard = ({
   job_google_link,
   job_min_salary,
   job_salary_currency,
-  job_salary_period,
+  job_employment_type,
 }: JobProps) => {
-  if (job_salary_period === "YEAR") {
-    job_salary_period = "FULLTIME";
-  } else {
-    job_salary_period = "Not disclosed";
-  }
-
   const [flag, setFlag] = useState("");
 
   useEffect(() => {
@@ -112,7 +106,7 @@ const JobsCard = ({
               />
               <div>
                 <p className="body-medium text-light-500">
-                  {job_salary_period}
+                  {job_employment_type || "Not Disclosed"}
                 </p>
               </div>
             </div>
@@ -130,7 +124,7 @@ const JobsCard = ({
                     {job_salary_currency}
                   </p>
                 ) : (
-                  <p className="body-medium text-light-500">Not disclosed</p>
+                  <p className="body-medium text-light-500">Not Disclosed</p>
                 )}
               </div>
             </div>

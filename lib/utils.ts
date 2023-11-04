@@ -149,17 +149,17 @@ interface FilterProps {
 }
 
 export async function fetchJobs(filters: FilterProps) {
-  const { country, query } = filters;
+  const { country, query, pageSize = 10, page = 1 } = filters;
 
   try {
     const res = await fetch(
-      `https://jsearch.p.rapidapi.com/search?query=${query}&country=${country}`,
+      `https://jsearch.p.rapidapi.com/search?query=${query}&page=${page}&num_pages=${pageSize}&country=${country}`,
 
       {
         method: "GET",
         headers: {
           "X-RapidAPI-Key":
-            "802020dfd4mshb622905659e0b6fp1c7f49jsn89c3fafb491a",
+            "4df3f46331msh4efb37c87d1b7a7p115642jsncdb71db3195c",
           "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
         },
       }
