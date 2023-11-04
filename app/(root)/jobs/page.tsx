@@ -9,6 +9,7 @@ const Jobs = async ({ searchParams }: SearchParamsProps) => {
   const allJobs = await fetchJobs({
     query: searchParams.q || "jobs",
     country: searchParams.filter,
+    page: searchParams.page ? +searchParams.page : 1,
   });
 
   const objJobs = Object.values(allJobs);

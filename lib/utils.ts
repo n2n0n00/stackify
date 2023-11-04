@@ -167,6 +167,7 @@ export async function fetchJobs(filters: FilterProps) {
 
     const jsonData = await res.json();
     const data = jsonData.data;
+
     return data;
   } catch (err) {
     console.log(err);
