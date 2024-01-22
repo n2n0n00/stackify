@@ -50,7 +50,7 @@ const JobsCard = ({
   }, [job_country]);
 
   return (
-    <section className="background-light900_dark200 light-border shadow-light100_darknone flex flex-col items-start gap-6 rounded-lg border p-6 sm:flex-row sm:p-8">
+    <section className="background-light900_dark200 light-border shadow-light100_darknone flex w-[90vw] flex-col items-start gap-6 rounded-lg border p-6 sm:w-[75vw] sm:flex-row sm:p-8 lg:w-full">
       <div className="flex w-full justify-end sm:hidden">
         <div className="background-light800_dark400 flex items-center justify-end gap-2 rounded-2xl px-3 py-1.5">
           {flag && (

@@ -60,7 +60,7 @@ const Jobs = async ({ searchParams }: SearchParamsProps) => {
       {!isDataEmpty ? (
         <>
           {sortedJobs?.map((job: any) => (
-            <div key="1" className="mt-12 flex flex-col gap-6">
+            <div key="1" className="mt-12 flex w-full flex-col gap-6">
               <JobsCard
                 employer_logo={job.employer_logo}
                 job_title={job.job_title}

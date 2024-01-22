@@ -33,7 +33,7 @@ const Navbar = () => {
                 avatarBox: "h-10 w-10",
               },
               variables: {
-                colorPrimary: "#ff7000",
+                colorPrimary: "#10bdc3",
               },
             }}
           />
