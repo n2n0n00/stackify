@@ -50,12 +50,12 @@ const Filter = ({ filters, otherClasses, containerClasses }: Props) => {
           </div>
         </SelectTrigger>
         <SelectContent className="text-dark500_light700 small-regular border-none bg-light-900 dark:bg-dark-300">
-          <SelectGroup>
+          <SelectGroup className="no-scrollbar h-[200px] w-[170px] overflow-y-scroll">
             {filters.map((item) => (
               <SelectItem
                 key={item.value}
                 value={item.value}
-                className="cursor-pointer focus:bg-light-800 dark:focus:bg-dark-400"
+                className="line-clamp-1 cursor-pointer focus:bg-light-800 dark:focus:bg-dark-400"
               >
                 {item.name}
               </SelectItem>

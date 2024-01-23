@@ -1,18 +1,15 @@
 import UserCard from "@/components/cards/UserCard";
 import Filter from "@/components/shared/Filter";
 import Pagination from "@/components/shared/Pagination";
-import LocalSearchbar from "../../../components/shared/search/LocalSearchbar";
+import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { UserFilters } from "@/constants/filters";
 import { getAllUsers } from "@/lib/actions/user.action";
 import { SearchParamsProps } from "@/types";
 import Link from "next/link";
-import Loading from "./loading";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Community | Stackify",
-  description:
-    "A robust community of developers who answer and ask questions about import coding things...",
 };
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
@@ -21,10 +18,6 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
     filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1,
   });
-
-  const isLoading = false;
-
-  if (isLoading) return <Loading />;
 
   return (
     <>

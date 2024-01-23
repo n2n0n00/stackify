@@ -3,7 +3,7 @@ import HomeFilters from "@/components/home/HomeFilters";
 import Filter from "@/components/shared/Filter";
 import NoResult from "@/components/shared/NoResult";
 import Pagination from "@/components/shared/Pagination";
-import LocalSearchbar from "../../../components/shared/search/LocalSearchbar";
+import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
 import {
@@ -12,18 +12,17 @@ import {
 } from "@/lib/actions/question.action";
 import { SearchParamsProps } from "@/types";
 import Link from "next/link";
-import Loading from "./loading";
-import { Metadata } from "next";
+
+import type { Metadata } from "next";
 import { auth } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
   title: "Home | Stackify",
-  description:
-    "Stackify is your one stop shop community for all things coding...",
 };
 
 export default async function Home({ searchParams }: SearchParamsProps) {
   const { userId } = auth();
+
   let result;
 
   if (searchParams?.filter === "recommended") {
@@ -34,7 +33,10 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         page: searchParams.page ? +searchParams.page : 1,
       });
     } else {
-      result = { questions: [], isNext: false };
+      result = {
+        questions: [],
+        isNext: false,
+      };
     }
   } else {
     result = await getQuestions({
@@ -43,12 +45,6 @@ export default async function Home({ searchParams }: SearchParamsProps) {
       page: searchParams.page ? +searchParams.page : 1,
     });
   }
-
-  // Fetch Recommended Questions
-
-  const isLoading = false;
-
-  if (isLoading) return <Loading />;
 
   return (
     <>

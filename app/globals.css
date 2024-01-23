@@ -42,7 +42,11 @@ body {
   }
 
   .primary-gradient {
-    background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
+    background: linear-gradient(
+      90deg,
+      rgba(183, 216, 0, 1) 0%,
+      rgba(16, 189, 195, 1) 99%
+    );
   }
 
   .dark-gradient {
@@ -56,6 +60,19 @@ body {
   .tab {
     @apply min-h-full dark:bg-dark-400 bg-light-800 text-light-500 dark:data-[state=active]:bg-dark-300 data-[state=active]:bg-primary-100 data-[state=active]:text-primary-500 !important;
   }
+
+  @variants responsive {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+  }
 }
 
 .no-focus {
@@ -63,7 +80,7 @@ body {
 }
 
 .active-theme {
-  filter: invert(53%) sepia(98%) saturate(3332%) hue-rotate(0deg)
+  filter: invert(53%) sepia(98%) saturate(3332%) hue-rotate(50deg)
     brightness(104%) contrast(106%) !important;
 }
 
@@ -76,7 +93,11 @@ body {
 }
 
 .primary-text-gradient {
-  background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(183, 216, 0, 1) 0%,
+    rgba(16, 189, 195, 1) 99%
+  );
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -103,7 +124,7 @@ body {
 
 /* Markdown Start */
 .markdown a {
-  color: #1da1f2;
+  color: #10bdc3;
 }
 
 .markdown a,
@@ -125,7 +146,7 @@ code {
   hyphens: auto;
 
   padding: 2px;
-  color: #ff7000 !important;
+  color: #10bdc3 !important;
 }
 
 .markdown pre {
@@ -144,7 +165,7 @@ code {
 
 /* Clerk */
 .cl-internal-b3fm6y {
-  background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%) !important;
+  background: linear-gradient(129deg, #10bdc3 0%, #cdfbfc 100%) !important;
 }
 
 .hash-span {

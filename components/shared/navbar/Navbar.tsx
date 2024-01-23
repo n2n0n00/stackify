@@ -17,9 +17,7 @@ const Navbar = () => {
           alt="Stackify"
         />
 
-        <p className="h1-bold font-spaceGrotesk text-primary-500 max-sm:hidden">
-          Stackify
-        </p>
+        <p className="h2-bold font-spaceGrotesk text-primary-500">Stackify</p>
       </Link>
 
       <GlobalSearch />
@@ -35,7 +33,7 @@ const Navbar = () => {
                 avatarBox: "h-10 w-10",
               },
               variables: {
-                colorPrimary: "#ff7000",
+                colorPrimary: "#10bdc3",
               },
             }}
           />

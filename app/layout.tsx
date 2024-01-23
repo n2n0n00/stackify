@@ -21,40 +21,11 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://localhhost:3000"),
   title: "Stackify",
   description:
-    "Stackify is your one stop shop community for all things coding. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms, data structures, and more.",
+    "A community-driven platform for asking and answering programming questions. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms, data structures, and more.",
   icons: {
     icon: "/assets/images/site-logo.svg",
-  },
-  openGraph: {
-    title: "Stackify",
-    description:
-      "Stackify is your one stop shop community for all things coding.",
-    url: "https://localhhost:3000",
-    siteName: "Stackify",
-    locale: "en_US",
-    type: "website",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  twitter: {
-    title: "Stackify",
-    card: "summary_large_image",
-  },
-  verification: {
-    google: "",
-    yandex: "",
   },
 };
 

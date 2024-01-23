@@ -1,9 +1,8 @@
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+import qs from "query-string";
 import { BADGE_CRITERIA } from "@/constants";
 import { BadgeCounts } from "@/types";
-import { type ClassValue, clsx } from "clsx";
-import qs from "query-string";
-import { twMerge } from "tailwind-merge";
-import { object } from "zod";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -141,3 +140,93 @@ export const assignBadges = (params: BadgeParam) => {
 
   return badgeCounts;
 };
+
+interface FilterProps {
+  country?: string | null;
+  query?: string | null;
+  page?: number | null;
+  pageSize?: number | null;
+}
+
+export async function fetchJobs(filters: FilterProps) {
+  const { country, query, pageSize = 10, page = 1 } = filters;
+
+  try {
+    const res = await fetch(
+      `https://jsearch.p.rapidapi.com/search?query=${query}&page=${page}&num_pages=${pageSize}&country=${country}`,
+
+      {
+        method: "GET",
+        headers: {
+          "X-RapidAPI-Key":
+            "4df3f46331msh4efb37c87d1b7a7p115642jsncdb71db3195c",
+          "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
+        },
+      }
+    );
+
+    const jsonData = await res.json();
+    const data = jsonData.data;
+
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function getCountry() {
+  try {
+    const response = await fetch("http://ip-api.com/json/?fields=countryCode");
+    if (!response.ok) {
+      throw new Error(`Request failed with status: ${response.status}`);
+    }
+    const data = await response.json();
+    const userCountry = data.countryCode;
+    return userCountry;
+  } catch (error) {
+    console.error("Error fetching User Country:", error);
+    throw error; // Rethrow the error for the caller to handle if needed
+  }
+}
+
+export function customSort(a: any, b: any) {
+  const userCountry = getCountry();
+
+  if (a.job_country === userCountry && b.job_country === userCountry) {
+    // If both jobs have the same userCountry, maintain the order.
+    return 0;
+  } else if (a.job_country === userCountry) {
+    // If only job 'a' has the same userCountry, place it first
+    return -1;
+  } else if (b.job_country === userCountry) {
+    // If only job 'b' has the same userCountry, place it first
+    return 1;
+  } else {
+    // If neither job has the same userCountry, maintain the order.
+    return 0;
+  }
+}
+
+export async function fetchCountryData() {
+  const apiUrl = await "https://restcountries.com/v3.1/all"; // API endpoint to fetch all countries
+
+  return fetch(apiUrl)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // Extract country names and codes from the response data
+      const countryData = data.map((country: any) => ({
+        name: country.name.common,
+        value: country.cca2,
+      }));
+      return countryData;
+    })
+    .catch((error) => {
+      console.error("Error fetching country data:", error);
+      return [];
+    });
+}

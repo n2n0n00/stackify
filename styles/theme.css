@@ -7,6 +7,10 @@
     @apply bg-light-850 dark:bg-dark-100;
   }
 
+  .text-light900_dark100 {
+    @apply text-light-900 dark:text-dark-100;
+  }
+
   .background-light900_dark200 {
     @apply bg-light-900 dark:bg-dark-200;
   }
@@ -192,7 +196,11 @@
   }
 
   .primary-gradient {
-    background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
+    background: linear-gradient(
+      90deg,
+      rgba(183, 216, 0, 1) 0%,
+      rgba(16, 189, 195, 1) 99%
+    );
   }
 
   .dark-gradient {

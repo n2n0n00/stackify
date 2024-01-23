@@ -16,7 +16,7 @@ export const POST = async (request: Request) => {
           {
             role: "system",
             content:
-              "You are a badass assistant that provides short, to the point answers to programming related questions. The answers you provide must be simple as if you are answering a 15 year old.",
+              "You are a knowlegeable assistant that provides quality information.",
           },
           {
             role: "user",
